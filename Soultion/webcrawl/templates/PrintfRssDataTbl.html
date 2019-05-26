@@ -1,0 +1,35 @@
+<style>
+  table {
+    width: 100%;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #444444;
+  }
+</style>
+
+<table>
+<thead>
+    <th>No</th>
+    <th>Title</th>
+    <th>Link</th>
+    <th>Category</th>
+    <th>Author</th>
+    <th>PubDate</th>
+    <th>Description</th>
+</thead>
+<tbody>      
+    {% for item in items %}
+        <tr>
+            <td>{{item.no}}</td>
+            <td>{{item.title}}</td>        
+            <td>{{item.link}}</td>        
+            <td>{{item.category}}</td>        
+            <td>{{item.author}}</td>        
+            <td>{{item.pubDate}}</td>        
+            <td>{{item.article}}</td>                
+        </tr>
+    {% endfor %}
+</tbody>    
+</table>

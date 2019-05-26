@@ -1,0 +1,6 @@
+<h1> Execute Scripe Rss </h1>
+<form action="{% url 'ExecuteStripeRss' %}" method="post">
+    {% csrf_token %}    
+    {{ form }}    
+    <input type="submit" value="Submit"/>
+</form>
