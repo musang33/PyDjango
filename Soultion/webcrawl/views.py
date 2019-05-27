@@ -1,12 +1,17 @@
 from django.shortcuts import render
-from webcrawl.models import RssDataTbl
+from webcrawl.models import LatestInfoTbl, RssDataTbl
 from .forms import RssAddressForm
+from .SongCrawl import CrawlClass
 
 # Create your views here.
 def PrintfRssDataTbl(request):
     rssDataTbl = RssDataTbl.objects.all()
-    context = {'rssDataTbl':rssDataTbl}
-    return render(request, 'PrintfRssDataTbl.html', context)
+   
+    for item in rssDataTbl :
+            print( item.no )
+            print( item.title ) 
+            
+    return render(request, 'PrintfRssDataTbl.html', {'rssDataTbl':rssDataTbl})
 
 def FormStripeRss(request):    
     form = RssAddressForm()
@@ -16,4 +21,6 @@ def ExecuteStripeRss(request):
     form = RssAddressForm(request.POST)
     if form.is_valid():
         rssAddress = form.cleaned_data.get('rss_address')
-        return render(request, 'ExecuteStripeRss.html',  {'rssAddress':rssAddress})
+        crawlClass = CrawlClass()
+        crawlClass.ParseRss(LatestInfoTbl, RssDataTbl)
+        return PrintfRssDataTbl( request )        

@@ -4,7 +4,7 @@ from django.db import models
 
 class LatestInfoTbl(models.Model) :
     fileName = models.CharField(max_length=200)
-    pubDate = models.DateTimeField('date published')
+    pubDate = models.CharField(max_length=200)
 
     def __str__(self):
         return self.fileName
@@ -16,7 +16,7 @@ class RssDataTbl(models.Model) :
     link = models.CharField(max_length=200)
     category = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
-    pubDate = models.DateTimeField('date published')
+    pubDate = models.CharField(max_length=200)
     article = models.CharField(max_length=2000)
 
     def __str__(self):
