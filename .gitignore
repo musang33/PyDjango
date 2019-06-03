@@ -1,0 +1,14 @@
+# Ignore folder name '.vscode'
+.vscode/
+
+# Ignore venv files and folders
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Ignore __pycache__
+__pycache__/
+*.pyc
+
+# Ignore django setting file
+settings.py
