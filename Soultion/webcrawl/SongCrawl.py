@@ -58,11 +58,8 @@ class CrawlClass:
                 bsObject = BeautifulSoup(html.content, 'xml') 
                 lastBuildData = bsObject.find('lastBuildDate')
                                 
-                selectRes, created = LatestInfoTbl.objects.get_or_create(fileName = 'rss_30000001.xml')      
-                if created :
-                        insert = LatestInfoTbl(fileName = 'rss_30000001.xml', pubDate=lastBuildData.string)                        
-                        insert.save()                         
-                else :
+                selectRes, created = LatestInfoTbl.objects.get_or_create(fileName = 'rss_30000001.xml', pubDate=lastBuildData.string)      
+                if not created :
                         if selectRes.pubDate > lastBuildData.string :
                                 return
                         selectRes.objects.filter(fileName = 'rss_30000001.xml').update(pubDate=lastBuildData.string)                        
