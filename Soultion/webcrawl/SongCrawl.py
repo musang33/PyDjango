@@ -57,19 +57,18 @@ class CrawlClass:
                 html = requests.get("http://file.mk.co.kr/news/rss/rss_30000001.xml")
                 bsObject = BeautifulSoup(html.content, 'xml') 
                 lastBuildData = bsObject.find('lastBuildDate')
-
-                try:
-                        selectRes = LatestInfoTbl.objects.get(fileName = 'rss_30000001.xml')
-                except LatestInfoTbl.DoesNotExist:
-                        insert = LatestInfoTbl(fileName='rss_30000001.xml', pubDate=lastBuildData.string)
-                        insert.save()                    
-                finally:
+                                
+                selectRes, created = LatestInfoTbl.objects.get_or_create(fileName = 'rss_30000001.xml')      
+                if selectRes :
                         if selectRes.pubDate > lastBuildData.string :
                                 return
-                
-                        LatestInfoTbl.objects.filter(fileName = 'rss_30000001.xml').update(pubDate=lastBuildData.string)                        
-
-                        self.__InsertRss(bsObject, RssDataTbl)
+                        selectRes.objects.filter(fileName = 'rss_30000001.xml').update(pubDate=lastBuildData.string)                        
+                        selectRes.save() 
+                if created :
+                        created.objects.filter(fileName = 'rss_30000001.xml').update(pubDate=lastBuildData.string)                        
+                        created.save() 
+               
+                self.__InsertRss(bsObject, RssDataTbl)
                
         def ShowRssTable(self):
                 '''
